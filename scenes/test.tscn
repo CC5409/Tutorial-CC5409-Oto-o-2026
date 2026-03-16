@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://bgpli40v0gob5"]
+
+[ext_resource type="Script" uid="uid://2lmsrs8rniw5" path="res://scenes/test.gd" id="1_errlg"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_bl13t"]
+[ext_resource type="PackedScene" uid="uid://d2ijtieumyhof" path="res://scenes/player.tscn" id="3_iyx0m"]
+[ext_resource type="PackedScene" uid="uid://d0udwekt8pmqj" path="res://scenes/ball.tscn" id="4_74lek"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iyx0m"]
+size = Vector2(1670, 118)
+
+[node name="Test" type="Node2D" unique_id=1048976251]
+script = ExtResource("1_errlg")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=992971951]
+position = Vector2(734, 705)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1122847022]
+shape = SubResource("RectangleShape2D_iyx0m")
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D" unique_id=1233749550]
+scale = Vector2(12.999997, 1)
+texture = ExtResource("2_bl13t")
+
+[node name="Player" parent="." unique_id=1488673841 instance=ExtResource("3_iyx0m")]
+position = Vector2(760, -523)
+
+[node name="Ball" parent="." unique_id=1846706887 instance=ExtResource("4_74lek")]
+position = Vector2(160, 121)
+
+[node name="Ball2" parent="." unique_id=1921682380 instance=ExtResource("4_74lek")]
+position = Vector2(500, 86)
+
+[node name="Ball3" parent="." unique_id=421793768 instance=ExtResource("4_74lek")]
+position = Vector2(309, 322)
+
+[node name="Ball4" parent="." unique_id=1087836431 instance=ExtResource("4_74lek")]
+position = Vector2(1090, 214)
+
+[node name="Ball5" parent="." unique_id=1194714704 instance=ExtResource("4_74lek")]
+position = Vector2(884, 89)
+
+[node name="Ball6" parent="." unique_id=1518279420 instance=ExtResource("4_74lek")]
+position = Vector2(741, 342)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1252727644]
+position = Vector2(64, 583)
+
+[node name="Icon" type="Sprite2D" parent="Area2D" unique_id=1872166477]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(15, -61)
+scale = Vector2(1.4994332, 3.6540709)
+texture = ExtResource("2_bl13t")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=189096544]
+position = Vector2(-26, -36)
+polygon = PackedVector2Array(-65, -116, 127, -125, 97, 135, -59, 107, -12, 50)
