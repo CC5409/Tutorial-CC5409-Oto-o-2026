@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://fja3u8rkhq8s"]
+
+[ext_resource type="Script" uid="uid://qxpm8r1yyyn6" path="res://bullets/bullet.gd" id="1_wo3kc"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_ascq4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xuifw"]
+size = Vector2(152, 48)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wo3kc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Bullet" type="Area2D" unique_id=1569171277]
+script = ExtResource("1_wo3kc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2024420550]
+shape = SubResource("RectangleShape2D_xuifw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=418047423]
+rotation = 1.5707964
+scale = Vector2(0.2577486, 0.9999993)
+texture = ExtResource("2_ascq4")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1449556729]
+replication_config = SubResource("SceneReplicationConfig_wo3kc")

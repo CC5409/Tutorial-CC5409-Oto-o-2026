@@ -2,14 +2,21 @@
 
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://8rdbqfwr8gxs" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://fja3u8rkhq8s" path="res://bullets/bullet.tscn" id="2_qhqgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 22.0
 height = 82.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g2els"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D" unique_id=1488673841]
 script = ExtResource("1_g2els")
 speed = 217
+bullet_scene = ExtResource("2_qhqgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=391585368]
 shape = SubResource("CapsuleShape2D_g2els")
@@ -17,3 +24,20 @@ shape = SubResource("CapsuleShape2D_g2els")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1698051133]
 scale = Vector2(0.39999986, 1)
 texture = ExtResource("1_3vyb7")
+
+[node name="Label" type="Label" parent="." unique_id=2058965018]
+offset_left = -25.0
+offset_top = -106.0
+offset_right = 15.0
+offset_bottom = -83.0
+text = "name"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1927239299]
+replication_config = SubResource("SceneReplicationConfig_g2els")
+
+[node name="BulletSpawner" type="MultiplayerSpawner" parent="." unique_id=258838248]
+spawn_path = NodePath(".")
+
+[node name="BulletSpawnMarker" type="Marker2D" parent="." unique_id=2061836472]
+position = Vector2(0, -131)
+gizmo_extents = 51.5
