@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://bb17db381bnli"]
+
+[ext_resource type="Script" uid="uid://c0at20tnnxv71" path="res://ui/pause_menu.gd" id="1_50142"]
+
+[node name="PauseMenu" type="Control" unique_id=457448076]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_50142")
+
+[node name="Screen" type="Panel" parent="." unique_id=214768832]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Screen" unique_id=1024725092]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -41.5
+offset_right = 116.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "PAUSED"
+
+[node name="PlayerBoxContainer" type="VBoxContainer" parent="." unique_id=1916650608]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -215.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="PauseLabel" type="Label" parent="PlayerBoxContainer" unique_id=1511121961]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pause?"
+horizontal_alignment = 2
+
+[node name="PlayerContainer" type="VBoxContainer" parent="PlayerBoxContainer" unique_id=2023715125]
+unique_name_in_owner = true
+layout_mode = 2
