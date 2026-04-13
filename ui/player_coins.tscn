@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ikxqn3uv2bba"]
+
+[ext_resource type="Script" uid="uid://d2wr7x10govyl" path="res://ui/player_coins.gd" id="1_jm5sn"]
+
+[node name="PlayerCoins" type="HBoxContainer" unique_id=1237074544]
+script = ExtResource("1_jm5sn")
+
+[node name="PlayerNameLabel" type="Label" parent="." unique_id=1961076452]
+layout_mode = 2
+text = "Player:"
+
+[node name="CoinsLabel" type="Label" parent="." unique_id=822229217]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "XX"
+horizontal_alignment = 2

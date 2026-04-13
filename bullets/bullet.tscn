@@ -15,6 +15,7 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 [node name="Bullet" type="Area2D" unique_id=1569171277]
+visible = false
 script = ExtResource("1_wo3kc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2024420550]

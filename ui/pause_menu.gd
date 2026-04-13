@@ -6,7 +6,6 @@ extends Control
 @onready var pause_label: Label = %PauseLabel
 
 
-
 func _ready() -> void:
 	screen.hide()
 	player_box_container.hide()

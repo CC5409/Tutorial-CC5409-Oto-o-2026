@@ -12,9 +12,13 @@ var _data: Statics.PlayerData
 @onready var label: Label = $Label
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 @onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
-@onready var bullet_spawn_marker: Marker2D = $BulletSpawnMarker
+@onready var bullet_spawn_marker: Marker2D = $Pivot/BulletSpawnMarker
 @onready var input_synchronizer: InputSynchronizer = $InputSynchronizer
 @onready var sync_timer: Timer = $SyncTimer
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/movement/playback"]
+@onready var pivot: Node2D = $Pivot
+
 
 
 func _ready() -> void:
@@ -36,15 +40,22 @@ func _physics_process(delta: float) -> void:
 	
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("fire"):
-			var direction: Vector2 = bullet_spawn_marker.global_position.direction_to(get_global_mouse_position())
-			fire.rpc_id(1, direction)
-	
-	#send_position.rpc(global_position)
-	
+			fire_one_shot.rpc("fire_one_shot")
+
 	
 	if Input.is_action_just_pressed("test") and is_multiplayer_authority():
 		#test.rpc()
 		visible = not visible
+	
+	# animation
+	if move_input != 0:
+		pivot.scale.x = sign(move_input)
+	
+	if move_input != 0 or abs(velocity.x) > 10:
+		playback.travel("walk")
+	else:
+		playback.travel("idle")
+
 
 func change_color() -> void:
 	sprite_2d.modulate = Color.RED
@@ -72,16 +83,28 @@ func send_data(pos: Vector2, vel: Vector2) -> void:
 	global_position = lerp(global_position, pos, 0.5)
 	velocity = velocity.lerp(vel, 0.5)
 
+func fire() -> void:
+	if not is_multiplayer_authority():
+		return
+	var direction: Vector2 = bullet_spawn_marker.global_position.direction_to(get_global_mouse_position())
+	fire_server.rpc_id(1, direction)
+	
+
+
 # this only shoul be called on the server
 @rpc("authority", "call_local")
-func fire(direction: Vector2) -> void:
+func fire_server(direction: Vector2) -> void:
 	if not bullet_scene:
 		return
-	var bullet_inst = bullet_scene.instantiate()
+	var bullet_inst: Node2D = bullet_scene.instantiate()
 	bullet_inst.global_position = bullet_spawn_marker.global_position
-
 	bullet_inst.global_rotation = direction.angle()
 	bullet_spawner.add_child(bullet_inst, true)
+
+
+@rpc("authority", "call_local", "reliable")
+func fire_one_shot(one_shot_name: String) -> void:
+	animation_tree["parameters/%s/request" % one_shot_name] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 
 @rpc("any_peer", "call_local")
@@ -104,4 +127,6 @@ func test5() -> void:
 
 func _on_sync_timeout() -> void:
 	send_data.rpc(global_position, velocity)
-	
+
+func get_id() -> int:
+	return _data.id

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://djgy6l1oe7jka"]
+
+[ext_resource type="Script" uid="uid://c0x3ox4ycrdy5" path="res://ui/hud.gd" id="1_276te"]
+[ext_resource type="PackedScene" uid="uid://ikxqn3uv2bba" path="res://ui/player_coins.tscn" id="2_546lt"]
+
+[node name="HUD" type="CanvasLayer" unique_id=992898873]
+script = ExtResource("1_276te")
+player_coins_scene = ExtResource("2_546lt")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1074502483]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -340.0
+offset_top = -1.0
+offset_bottom = 233.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1060630002]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1128717030]
+layout_mode = 2
+text = "Coins"
+
+[node name="PlayerCoinsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=314850887]
+unique_name_in_owner = true
+layout_mode = 2

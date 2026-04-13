@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://h1vbguyjjow"]
+
+[ext_resource type="Texture2D" uid="uid://ddmhvw8wvxknn" path="res://assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Props.png" id="1_4wii0"]
+[ext_resource type="Script" uid="uid://b2tqb6jmrm64f" path="res://gameplay/coin.gd" id="1_c82v4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4wii0"]
+radius = 44.04543
+
+[sub_resource type="Animation" id="Animation_c82v4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mudrj"]
+resource_name = "pickup"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(10, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2mq2s"]
+_data = {
+&"RESET": SubResource("Animation_c82v4"),
+&"pickup": SubResource("Animation_mudrj")
+}
+
+[node name="Coin" type="Area2D" unique_id=985106800]
+script = ExtResource("1_c82v4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1051336354]
+scale = Vector2(4, 4)
+texture = ExtResource("1_4wii0")
+region_enabled = true
+region_rect = Rect2(328.8718, 265.29565, 15.128204, 14.704346)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1637194849]
+shape = SubResource("CircleShape2D_4wii0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=497329271]
+libraries/ = SubResource("AnimationLibrary_2mq2s")

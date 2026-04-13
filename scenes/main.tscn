@@ -5,6 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://fja3u8rkhq8s" path="res://bullets/bullet.tscn" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://dtfbbb74rs0qa" path="res://assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Stone Ground.png" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bb17db381bnli" path="res://ui/pause_menu.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://h1vbguyjjow" path="res://gameplay/coin.tscn" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://djgy6l1oe7jka" path="res://ui/hud.tscn" id="7_o6xl0"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_o6xl0"]
+scenes/1/scene = ExtResource("6_tefeu")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tefeu"]
 texture = ExtResource("4_tbgi4")
@@ -214,6 +219,7 @@ terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/2 = SubResource("TileSetAtlasSource_tefeu")
+sources/0 = SubResource("TileSetScenesCollectionSource_o6xl0")
 
 [node name="Main" type="Node2D" unique_id=826628695]
 script = ExtResource("1_o5qli")
@@ -247,6 +253,24 @@ rotation = -0.6081395
 position = Vector2(862, 465)
 rotation = 1.1257902
 
+[node name="HUD" parent="." unique_id=992898873 instance=ExtResource("7_o6xl0")]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=791720674]
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=457448076 instance=ExtResource("5_tbgi4")]
+visible = false
+
+[node name="Coin" parent="." unique_id=985106800 instance=ExtResource("6_tefeu")]
+position = Vector2(727, 570)
+
+[node name="Coin2" parent="." unique_id=1193007141 instance=ExtResource("6_tefeu")]
+position = Vector2(597, 626)
+
+[node name="Coin3" parent="." unique_id=344271317 instance=ExtResource("6_tefeu")]
+position = Vector2(486, 616)
+
+[node name="Coin4" parent="." unique_id=470959701 instance=ExtResource("6_tefeu")]
+position = Vector2(522, 483)
+
+[node name="Coin5" parent="." unique_id=1773750719 instance=ExtResource("6_tefeu")]
+position = Vector2(635, 454)

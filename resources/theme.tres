@@ -2,3 +2,7 @@
 
 [resource]
 default_font_size = 60
+MarginContainer/constants/margin_bottom = 32
+MarginContainer/constants/margin_left = 32
+MarginContainer/constants/margin_right = 32
+MarginContainer/constants/margin_top = 32

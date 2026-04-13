@@ -28,12 +28,19 @@ static func get_role_name(role: Role) -> String:
 
 
 class PlayerData:
+	
+	signal coins_changed(value: int)
+	
 	var id: int
 	var name: String
 	# Position relative to other players
 	var index: int = -1
 	var role: Role
 	var vote: bool = false
+	var coins: int = 0:
+		set(value):
+			coins = value
+			coins_changed.emit(coins)
 	
 	func _init(new_id: int, new_name: String, new_index: int = -1, new_role: Role = Role.NONE) -> void:
 		id = new_id
@@ -54,7 +61,7 @@ class PlayerData:
 		}
 	
 	static func from_dict(data: Dictionary) -> PlayerData:
-		var player = PlayerData.new(data.id, data.name, data.index, data.role)
+		var player: PlayerData = PlayerData.new(data.id, data.name, data.index, data.role)
 		player.vote = data.vote
 		return player
 	
