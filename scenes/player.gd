@@ -18,24 +18,22 @@ var _data: Statics.PlayerData
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/movement/playback"]
 @onready var pivot: Node2D = $Pivot
-
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var camera_2d: Camera2D = $Camera2D
 
 
 func _ready() -> void:
+
+	health_component.health_changed.connect(_on_health_changed)
 	sync_timer.timeout.connect(_on_sync_timeout)
 	if bullet_scene:
 		bullet_spawner.add_spawnable_scene(bullet_scene.resource_path)
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity.y += get_gravity().y * delta
+
 	
-	if is_on_floor() and input_synchronizer.jump:
-		velocity.y = -jump_speed
-		input_synchronizer.jump = false
-	
-	var move_input: float = input_synchronizer.move_input
-	velocity.x = move_toward(velocity.x, move_input * speed, acceleration * delta)
+	var move_input: Vector2 = input_synchronizer.move_input
+	velocity = velocity.move_toward(move_input * speed, acceleration * delta)
 	move_and_slide()
 	
 	if is_multiplayer_authority():
@@ -48,10 +46,10 @@ func _physics_process(delta: float) -> void:
 		visible = not visible
 	
 	# animation
-	if move_input != 0:
-		pivot.scale.x = sign(move_input)
+	if move_input.x != 0:
+		pivot.scale.x = sign(move_input.x)
 	
-	if move_input != 0 or abs(velocity.x) > 10:
+	if not move_input.is_zero_approx() or velocity.length_squared() > 40:
 		playback.travel("walk")
 	else:
 		playback.travel("idle")
@@ -70,6 +68,7 @@ func setup(data: Statics.PlayerData) -> void:
 	input_synchronizer.set_multiplayer_authority(data.id, false)
 	if is_multiplayer_authority():
 		sync_timer.start()
+	camera_2d.enabled = is_multiplayer_authority()
 
 # authority / any_peer
 # call_remote / call_local
@@ -130,3 +129,7 @@ func _on_sync_timeout() -> void:
 
 func get_id() -> int:
 	return _data.id
+
+
+func _on_health_changed(value: int) -> void:
+	Debug.log(value)

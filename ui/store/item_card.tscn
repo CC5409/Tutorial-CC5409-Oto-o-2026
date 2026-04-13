@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dnqoivtiiork8"]
+
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_6eusl"]
+[ext_resource type="Script" uid="uid://3nbtlug5wjji" path="res://ui/store/item_card.gd" id="1_rdsi8"]
+[ext_resource type="Resource" uid="uid://ch2vrrafnvth6" path="res://items/sword.tres" id="2_dpuog"]
+
+[node name="ItemCard" type="PanelContainer" unique_id=1270391840]
+script = ExtResource("1_rdsi8")
+item_data = ExtResource("2_dpuog")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=429291277]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1933944979]
+layout_mode = 2
+
+[node name="DisplayName" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1855324995]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sword"
+
+[node name="Image" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=2060293024]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("1_6eusl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Description" type="RichTextLabel" parent="MarginContainer/VBoxContainer" unique_id=2045945191]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "More attack"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1711733847]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=225031344]
+layout_mode = 2
+text = "Price:"
+
+[node name="Price" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1725015712]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "$2"
+horizontal_alignment = 2

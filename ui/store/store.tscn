@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://584r0mvrgy83"]
+
+[ext_resource type="Script" uid="uid://dwuokbwxmtamh" path="res://ui/store/store.gd" id="1_ma4uk"]
+[ext_resource type="PackedScene" uid="uid://dnqoivtiiork8" path="res://ui/store/item_card.tscn" id="2_27c4d"]
+[ext_resource type="Script" uid="uid://ce7of5x58a5d5" path="res://items/item_data.gd" id="3_jh62o"]
+[ext_resource type="Resource" uid="uid://ch2vrrafnvth6" path="res://items/sword.tres" id="4_7dac8"]
+[ext_resource type="Resource" uid="uid://bpv0rg85ufg2f" path="res://items/potion++.tres" id="5_ma41c"]
+[ext_resource type="Resource" uid="uid://cb3b32sicju4t" path="res://items/potion.tres" id="6_a3op8"]
+
+[node name="Store" type="Control" unique_id=2100594302]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ma4uk")
+item_card_scene = ExtResource("2_27c4d")
+item_data_array = Array[ExtResource("3_jh62o")]([ExtResource("4_7dac8"), ExtResource("5_ma41c"), ExtResource("6_a3op8")])
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1825522735]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemCardContainer" type="HBoxContainer" parent="MarginContainer" unique_id=676176008]
+unique_name_in_owner = true
+layout_mode = 2

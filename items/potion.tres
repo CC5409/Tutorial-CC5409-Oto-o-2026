@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3 uid="uid://cb3b32sicju4t"]
+
+[ext_resource type="Texture2D" uid="uid://ddmhvw8wvxknn" path="res://assets/Pixel Art Top Down - Basic v1.2.3/Texture/TX Props.png" id="1_8h85v"]
+[ext_resource type="Script" uid="uid://cm0rbcrh7jp2t" path="res://items/potion.gd" id="2_8h85v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nysy"]
+atlas = ExtResource("1_8h85v")
+region = Rect2(160, 280, 32, 40)
+
+[resource]
+script = ExtResource("2_8h85v")
+display_name = "Potion"
+description = "It's a potion man, what do you think"
+image = SubResource("AtlasTexture_2nysy")
+metadata/_custom_type_script = "uid://ce7of5x58a5d5"

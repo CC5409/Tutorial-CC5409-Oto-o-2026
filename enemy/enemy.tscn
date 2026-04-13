@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://3e6yrtviopst"]
+
+[ext_resource type="Texture2D" uid="uid://ch4enaxxv06gl" path="res://assets/FreeCharactersAnimationsAssetPack/SpriteSheets(96x96)/Human_Soldier_Sword_Shield/No_Shadows/Human_Soldier_Sword_Shield_Idle-Sheet.png" id="1_2mvqj"]
+[ext_resource type="Script" uid="uid://w7d88w7i31ow" path="res://enemy/enemy.gd" id="1_ppra6"]
+[ext_resource type="Script" uid="uid://xxxmevpegf5b" path="res://components/hurtbox_component.gd" id="2_ofsxj"]
+[ext_resource type="PackedScene" uid="uid://djvowxqbg20ny" path="res://components/health_component.tscn" id="4_p200p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p200p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppra6"]
+size = Vector2(54, 78)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=2094262085]
+motion_mode = 1
+script = ExtResource("1_ppra6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1989027154]
+position = Vector2(0, -24)
+scale = Vector2(3, 3)
+texture = ExtResource("1_2mvqj")
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=283749237]
+shape = SubResource("CircleShape2D_p200p")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1629648543 node_paths=PackedStringArray("health_component")]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_ofsxj")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://xxxmevpegf5b"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=337710047]
+shape = SubResource("RectangleShape2D_ppra6")
+
+[node name="HealthComponent" parent="." unique_id=1611442190 instance=ExtResource("4_p200p")]

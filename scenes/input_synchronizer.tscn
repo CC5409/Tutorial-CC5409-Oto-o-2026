@@ -4,7 +4,7 @@
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath("InputSynchronizer:move_input")
-properties/0/spawn = false
+properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" unique_id=1562885980]

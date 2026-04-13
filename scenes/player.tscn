@@ -7,9 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://bmgbcwpu5dy6g" path="res://assets/FreeCharactersAnimationsAssetPack/SpriteSheets(96x96)/Monster_Slime/No_Shadows/Monster_Slime_Walk-Sheet.png" id="5_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://dqu05ls1pjky6" path="res://assets/FreeCharactersAnimationsAssetPack/SpriteSheets(96x96)/Monster_Slime/No_Shadows/Monster_Slime_Attack1-Sheet.png" id="5_tuyoq"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dkt8i76i1uuj0" path="res://player/movement_state_machine.tres" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://c0ndan5hccp35" path="res://components/hitbox_component.gd" id="8_smehm"]
+[ext_resource type="Script" uid="uid://xxxmevpegf5b" path="res://components/hurtbox_component.gd" id="9_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://djvowxqbg20ny" path="res://components/health_component.tscn" id="10_y4r1p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ur7pv"]
+size = Vector2(34, 42)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qlg0r"]
-radius = 14.866069
+radius = 12.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g2els"]
 
@@ -50,6 +56,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/HitboxComponent:monitorable")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/HitboxComponent:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_fjrip"]
@@ -105,6 +135,30 @@ tracks/3/keys = {
 "args": [],
 "method": &"fire"
 }]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/HitboxComponent:monitorable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/HitboxComponent:monitoring")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_qlg0r"]
@@ -205,7 +259,6 @@ animation = &"fire"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ur7pv"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_y4r1p"]
-graph_offset = Vector2(-151.87935, 95.01192)
 nodes/output/position = Vector2(528, 176)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_smehm")
 nodes/Animation/position = Vector2(48, 416)
@@ -215,12 +268,43 @@ nodes/fire_one_shot/node = SubResource("AnimationNodeOneShot_ur7pv")
 nodes/fire_one_shot/position = Vector2(272, 160)
 node_connections = [&"output", 0, &"fire_one_shot", &"fire_one_shot", 0, &"movement", &"fire_one_shot", 1, &"Animation"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4r1p"]
+size = Vector2(108, 92)
+
 [node name="Player" type="CharacterBody2D" unique_id=1488673841]
+motion_mode = 1
 script = ExtResource("1_g2els")
 speed = 217
 bullet_scene = ExtResource("2_qhqgy")
 
+[node name="Pivot" type="Node2D" parent="." unique_id=74604722]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot" unique_id=1698051133]
+position = Vector2(0, -9)
+scale = Vector2(3, 3)
+texture = ExtResource("3_dqkch")
+offset = Vector2(0, -4)
+hframes = 6
+
+[node name="BulletSpawnMarker" type="Marker2D" parent="Pivot" unique_id=2061836472]
+position = Vector2(13, -2)
+gizmo_extents = 51.5
+
+[node name="HitboxComponent" type="Area2D" parent="Pivot" unique_id=683945499]
+collision_layer = 6
+collision_mask = 6
+monitoring = false
+monitorable = false
+script = ExtResource("8_smehm")
+metadata/_custom_type_script = "uid://c0ndan5hccp35"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/HitboxComponent" unique_id=1880065456]
+visible = false
+position = Vector2(23, -2)
+shape = SubResource("RectangleShape2D_ur7pv")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=391585368]
+visible = false
 shape = SubResource("CircleShape2D_qlg0r")
 
 [node name="Label" type="Label" parent="." unique_id=2058965018]
@@ -251,14 +335,21 @@ parameters/fire_one_shot/active = false
 parameters/fire_one_shot/internal_active = false
 parameters/fire_one_shot/request = 0
 
-[node name="Pivot" type="Node2D" parent="." unique_id=74604722]
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1036797779 node_paths=PackedStringArray("health_component")]
+visible = false
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("9_ur7pv")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://xxxmevpegf5b"
 
-[node name="Sprite2D" type="Sprite2D" parent="Pivot" unique_id=1698051133]
-scale = Vector2(3, 3)
-texture = ExtResource("3_dqkch")
-offset = Vector2(0, -4)
-hframes = 6
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=603634600]
+visible = false
+shape = SubResource("RectangleShape2D_y4r1p")
 
-[node name="BulletSpawnMarker" type="Marker2D" parent="Pivot" unique_id=2061836472]
-position = Vector2(13, -2)
-gizmo_extents = 51.5
+[node name="HealthComponent" parent="." unique_id=1611442190 instance=ExtResource("10_y4r1p")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1641882317]
+zoom = Vector2(2, 2)
+process_callback = 0
+position_smoothing_enabled = true
