@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b4macirxqndmd"]
+
+[ext_resource type="PackedScene" uid="uid://qmda08w4ftee" path="res://weapon/weapon.tscn" id="1_vfo6d"]
+[ext_resource type="Script" uid="uid://df4lxq8y1p2me" path="res://weapon/big_weapon.gd" id="2_gh21x"]
+
+[node name="BigWeapon" unique_id=498232396 instance=ExtResource("1_vfo6d")]
+script = ExtResource("2_gh21x")
+
+[node name="Sprite2D" parent="." index="0" unique_id=1440722876]
+position = Vector2(24, -12)
+scale = Vector2(2, 2)
+
+[node name="Marker2D" parent="." index="1" unique_id=1316943011]
+position = Vector2(33, -2)

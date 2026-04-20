@@ -5,8 +5,11 @@ extends CharacterBody2D
 @export var acceleration: float = 400
 @export var jump_speed: int = 500
 @export var bullet_scene: PackedScene
+@export var weapon_scenes: Array[PackedScene]
 	
 var _data: Statics.PlayerData
+var current_weapon_index: int = 0
+var current_weapon: Weapon
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var label: Label = $Label
@@ -20,14 +23,27 @@ var _data: Statics.PlayerData
 @onready var pivot: Node2D = $Pivot
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var camera_2d: Camera2D = $Camera2D
+@onready var explosion_particle: GPUParticles2D = $ExplosionParticle
+@onready var weapon_pivot: Node2D = $WeaponPivot
+@onready var weapon: Weapon = $WeaponPivot/Weapon
+@onready var weapon_spawner: MultiplayerSpawner = $WeaponSpawner
+@onready var weapon_spawn_point: Marker2D = $WeaponPivot/WeaponSpawnPoint
 
 
 func _ready() -> void:
-
 	health_component.health_changed.connect(_on_health_changed)
 	sync_timer.timeout.connect(_on_sync_timeout)
 	if bullet_scene:
 		bullet_spawner.add_spawnable_scene(bullet_scene.resource_path)
+	if multiplayer.is_server():
+		for weapon_scene: PackedScene in weapon_scenes:
+			if not weapon_scene:
+				continue
+			weapon_spawner.add_spawnable_scene(weapon_scene.resource_path)
+		current_weapon = weapon_scenes[current_weapon_index].instantiate()
+		current_weapon.position = weapon_spawn_point.position
+		current_weapon.rotation = weapon_spawn_point.rotation
+		weapon_pivot.add_child(current_weapon, true)
 
 func _physics_process(delta: float) -> void:
 
@@ -37,8 +53,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	if is_multiplayer_authority():
+		
+		weapon_pivot.rotation = global_position.direction_to(get_global_mouse_position()).angle()
+		
 		if Input.is_action_just_pressed("fire"):
-			fire_one_shot.rpc("fire_one_shot")
+			#fire_one_shot.rpc("fire_one_shot")
+			current_weapon.fire()
+		if Input.is_action_just_pressed("explosion"):
+			explosion.rpc()
 
 	
 	if Input.is_action_just_pressed("test") and is_multiplayer_authority():
@@ -69,6 +91,7 @@ func setup(data: Statics.PlayerData) -> void:
 	if is_multiplayer_authority():
 		sync_timer.start()
 	camera_2d.enabled = is_multiplayer_authority()
+
 
 # authority / any_peer
 # call_remote / call_local
@@ -103,7 +126,8 @@ func fire_server(direction: Vector2) -> void:
 
 @rpc("authority", "call_local", "reliable")
 func fire_one_shot(one_shot_name: String) -> void:
-	animation_tree["parameters/%s/request" % one_shot_name] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	if not animation_tree["parameters/%s/active" % one_shot_name]:
+		animation_tree["parameters/%s/request" % one_shot_name] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 
 @rpc("any_peer", "call_local")
@@ -133,3 +157,8 @@ func get_id() -> int:
 
 func _on_health_changed(value: int) -> void:
 	Debug.log(value)
+
+
+@rpc("call_local", "reliable")
+func explosion() -> void:
+	explosion_particle.emitting = true

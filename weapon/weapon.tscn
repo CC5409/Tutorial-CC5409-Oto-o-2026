@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://qmda08w4ftee"]
+
+[ext_resource type="Texture2D" uid="uid://c7i38uh6x4u6y" path="res://assets/FreeCharactersAnimationsAssetPack/SpriteSheets(96x96)/Human_Soldier_Sword_Shield/No_Shadows/Human_Soldier_Sword_Shield_Attack2-Sheet.png" id="1_4ht74"]
+[ext_resource type="Script" uid="uid://b2gx3c3tlp7vy" path="res://weapon/weapon.gd" id="1_q8tx2"]
+[ext_resource type="PackedScene" uid="uid://fja3u8rkhq8s" path="res://bullets/bullet.tscn" id="2_1f825"]
+
+[node name="Weapon" type="Node2D" unique_id=498232396]
+script = ExtResource("1_q8tx2")
+bullet_scene = ExtResource("2_1f825")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1440722876]
+position = Vector2(17, -7)
+texture = ExtResource("1_4ht74")
+hframes = 8
+frame = 1
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1316943011]
+position = Vector2(21, -2)
+
+[node name="BulletSpawner" type="MultiplayerSpawner" parent="." unique_id=1799585303]
+spawn_path = NodePath(".")

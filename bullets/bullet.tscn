@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://qxpm8r1yyyn6" path="res://bullets/bullet.gd" id="1_wo3kc"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_ascq4"]
+[ext_resource type="Texture2D" uid="uid://dqu05ls1pjky6" path="res://assets/FreeCharactersAnimationsAssetPack/SpriteSheets(96x96)/Monster_Slime/No_Shadows/Monster_Slime_Attack1-Sheet.png" id="3_ascq4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xuifw"]
-size = Vector2(152, 48)
+size = Vector2(74, 26)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wo3kc"]
 properties/0/path = NodePath(".:position")
@@ -14,8 +15,53 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
+[sub_resource type="Curve" id="Curve_xuifw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bmuwf"]
+curve = SubResource("Curve_xuifw")
+
+[sub_resource type="Curve" id="Curve_c3usq"]
+_limits = [0.0, 4.0, 0.0, 1.0]
+_data = [Vector2(0, 2.4957263), 0.0, 0.0, 0, 0, Vector2(0.17763159, 0.71794844), 0.0, 0.0, 0, 0, Vector2(0.44078946, 2.997151), 0.0, 0.0, 0, 0, Vector2(0.5986842, 0.49002838), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ibjxv"]
+curve = SubResource("Curve_c3usq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mgd2n"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 30.0
+initial_velocity_min = 345.28998
+initial_velocity_max = 394.62
+angular_velocity_min = -322.87
+angular_velocity_max = 568.25
+scale_min = 5.49
+scale_max = 5.49
+scale_curve = SubResource("CurveTexture_ibjxv")
+color = Color(2.9688327, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_bmuwf")
+hue_variation_min = -1.0
+hue_variation_max = 0.99999994
+turbulence_enabled = true
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w5e60"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_um4s1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(25.735, 23.28, 1)
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 5.52
+anim_speed_max = 5.52
+
 [node name="Bullet" type="Area2D" unique_id=1569171277]
-visible = false
 script = ExtResource("1_wo3kc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2024420550]
@@ -23,8 +69,20 @@ shape = SubResource("RectangleShape2D_xuifw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=418047423]
 rotation = 1.5707964
-scale = Vector2(0.2577486, 0.9999993)
+scale = Vector2(0.138, 0.535)
 texture = ExtResource("2_ascq4")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1449556729]
 replication_config = SubResource("SceneReplicationConfig_wo3kc")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1457771639]
+amount = 10
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_mgd2n")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="." unique_id=345543467]
+material = SubResource("CanvasItemMaterial_w5e60")
+position = Vector2(25, -6)
+texture = ExtResource("3_ascq4")
+lifetime = 4.0
+process_material = SubResource("ParticleProcessMaterial_um4s1")

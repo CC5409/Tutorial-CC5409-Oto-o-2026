@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c2hjuh5hgj4q1"]
+
+[ext_resource type="PackedScene" uid="uid://d2ijtieumyhof" path="res://player/player.tscn" id="1_518qd"]
+[ext_resource type="Script" uid="uid://cpje5yh2selt0" path="res://player/blob.gd" id="2_518qd"]
+
+[node name="Blob" unique_id=1488673841 instance=ExtResource("1_518qd")]
+script = ExtResource("2_518qd")
+
+[node name="Sprite2D" parent="Pivot" parent_id_path=PackedInt32Array(74604722) index="0" unique_id=1698051133]
+self_modulate = Color(0.5176471, 0.45490196, 0.9764706, 1)

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ce4g6mx4it4ep"]
+
+[ext_resource type="PackedScene" uid="uid://qmda08w4ftee" path="res://weapon/weapon.tscn" id="1_xal0c"]
+[ext_resource type="Script" uid="uid://cpk04t8al50na" path="res://weapon/small_weapon.gd" id="2_ahive"]
+
+[node name="SmallWeapon" unique_id=498232396 instance=ExtResource("1_xal0c")]
+script = ExtResource("2_ahive")

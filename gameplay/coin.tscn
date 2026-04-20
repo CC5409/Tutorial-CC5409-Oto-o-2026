@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b2tqb6jmrm64f" path="res://gameplay/coin.gd" id="1_c82v4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4wii0"]
-radius = 44.04543
+radius = 36.0
 
 [sub_resource type="Animation" id="Animation_c82v4"]
 length = 0.001
