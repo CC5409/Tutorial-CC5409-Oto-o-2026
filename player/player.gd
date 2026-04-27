@@ -31,22 +31,18 @@ var current_weapon: Weapon
 
 
 func _ready() -> void:
+	for weapon_scene: PackedScene in weapon_scenes:
+		if not weapon_scene:
+			continue
+		weapon_spawner.add_spawnable_scene(weapon_scene.resource_path)
+	
 	health_component.health_changed.connect(_on_health_changed)
 	sync_timer.timeout.connect(_on_sync_timeout)
 	if bullet_scene:
 		bullet_spawner.add_spawnable_scene(bullet_scene.resource_path)
-	if multiplayer.is_server():
-		for weapon_scene: PackedScene in weapon_scenes:
-			if not weapon_scene:
-				continue
-			weapon_spawner.add_spawnable_scene(weapon_scene.resource_path)
-		current_weapon = weapon_scenes[current_weapon_index].instantiate()
-		current_weapon.position = weapon_spawn_point.position
-		current_weapon.rotation = weapon_spawn_point.rotation
-		weapon_pivot.add_child(current_weapon, true)
+	
 
 func _physics_process(delta: float) -> void:
-
 	
 	var move_input: Vector2 = input_synchronizer.move_input
 	velocity = velocity.move_toward(move_input * speed, acceleration * delta)
@@ -58,7 +54,7 @@ func _physics_process(delta: float) -> void:
 		
 		if Input.is_action_just_pressed("fire"):
 			#fire_one_shot.rpc("fire_one_shot")
-			current_weapon.fire()
+			get_current_weapon().fire()
 		if Input.is_action_just_pressed("explosion"):
 			explosion.rpc()
 
@@ -91,6 +87,12 @@ func setup(data: Statics.PlayerData) -> void:
 	if is_multiplayer_authority():
 		sync_timer.start()
 	camera_2d.enabled = is_multiplayer_authority()
+	
+	if multiplayer.is_server():
+		current_weapon = weapon_scenes[current_weapon_index].instantiate()
+		current_weapon.position = weapon_spawn_point.position
+		current_weapon.rotation = weapon_spawn_point.rotation
+		weapon_spawn_point.add_child(current_weapon, true)
 
 
 # authority / any_peer
@@ -162,3 +164,10 @@ func _on_health_changed(value: int) -> void:
 @rpc("call_local", "reliable")
 func explosion() -> void:
 	explosion_particle.emitting = true
+
+
+func get_current_weapon() -> Weapon:
+	return weapon_spawn_point.get_child(0) as Weapon
+
+func get_data() -> Statics.PlayerData:
+	return _data

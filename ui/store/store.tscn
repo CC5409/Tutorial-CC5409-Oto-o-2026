@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://ch2vrrafnvth6" path="res://items/sword.tres" id="4_7dac8"]
 [ext_resource type="Resource" uid="uid://bpv0rg85ufg2f" path="res://items/potion++.tres" id="5_ma41c"]
 [ext_resource type="Resource" uid="uid://cb3b32sicju4t" path="res://items/potion.tres" id="6_a3op8"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="7_7dac8"]
 
 [node name="Store" type="Control" unique_id=2100594302]
 layout_mode = 3
@@ -18,6 +19,18 @@ script = ExtResource("1_ma4uk")
 item_card_scene = ExtResource("2_27c4d")
 item_data_array = Array[ExtResource("3_jh62o")]([ExtResource("4_7dac8"), ExtResource("5_ma41c"), ExtResource("6_a3op8")])
 
+[node name="Label" type="Label" parent="." unique_id=1739920831]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -608.0
+offset_right = 608.0
+offset_bottom = 83.0
+grow_horizontal = 2
+text = "Tiendita"
+horizontal_alignment = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1825522735]
 layout_mode = 1
 anchors_preset = 15
@@ -29,3 +42,23 @@ grow_vertical = 2
 [node name="ItemCardContainer" type="HBoxContainer" parent="MarginContainer" unique_id=676176008]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="ItemCard1" parent="MarginContainer/ItemCardContainer" unique_id=1270391840 instance=ExtResource("2_27c4d")]
+unique_name_in_owner = true
+layout_mode = 2
+item_data = ExtResource("5_ma41c")
+
+[node name="ItemCard2" parent="MarginContainer/ItemCardContainer" unique_id=930207692 instance=ExtResource("2_27c4d")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ItemCard3" parent="MarginContainer/ItemCardContainer" unique_id=20432863 instance=ExtResource("2_27c4d")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RerollButton" type="Button" parent="MarginContainer" unique_id=1246098489]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = ExtResource("7_7dac8")

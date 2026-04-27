@@ -8,15 +8,17 @@ script = ExtResource("1_276te")
 player_coins_scene = ExtResource("2_546lt")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1074502483]
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -340.0
-offset_top = -1.0
-offset_bottom = 233.0
+offset_top = -234.0
 grow_horizontal = 0
+grow_vertical = 0
 size_flags_horizontal = 8
-size_flags_vertical = 4
+size_flags_vertical = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1060630002]
 layout_mode = 2

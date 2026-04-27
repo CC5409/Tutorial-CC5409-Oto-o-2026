@@ -14,6 +14,9 @@ signal player_index_received()
 @export var test_players: Array[PlayerDataResource] = [] # first one is server
 @export var main_scene: PackedScene
 
+@export var items: Array[ItemData]
+
+
 var players: Array[Statics.PlayerData] = []
 var change_window_scale := true :
 	set(value):
@@ -184,6 +187,8 @@ func _handle_node_added(node: Node) -> void:
 func set_player_coins(id: int, value: int) -> void:
 	multicast_set_player_coins.rpc(id, value)
 
+func set_current_player_coins(value: int) -> void:
+	multicast_set_player_coins.rpc(get_current_player().id, value)
 
 @rpc("any_peer", "call_local", "reliable")
 func multicast_set_player_coins(id: int, value: int) -> void:
@@ -193,3 +198,7 @@ func multicast_set_player_coins(id: int, value: int) -> void:
 
 func get_player_coins(id: int) -> int:
 	return get_player(id).coins
+
+
+func get_current_player_coins() -> int:
+	return get_current_player().coins

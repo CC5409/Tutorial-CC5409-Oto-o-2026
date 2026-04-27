@@ -350,7 +350,7 @@ text = "name"
 replication_config = SubResource("SceneReplicationConfig_g2els")
 
 [node name="BulletSpawner" type="MultiplayerSpawner" parent="." unique_id=258838248]
-spawn_path = NodePath(".")
+spawn_path = NodePath("../WeaponPivot/WeaponSpawnPoint")
 
 [node name="InputSynchronizer" parent="." unique_id=1562885980 instance=ExtResource("4_dqkch")]
 
@@ -399,4 +399,4 @@ process_material = SubResource("ParticleProcessMaterial_f1ej7")
 position = Vector2(46, -17)
 
 [node name="WeaponSpawner" type="MultiplayerSpawner" parent="." unique_id=500647171]
-spawn_path = NodePath("../WeaponPivot")
+spawn_path = NodePath("../WeaponPivot/WeaponSpawnPoint")

@@ -16,3 +16,4 @@ func _ready() -> void:
 		var spawn_point: Node2D = spawn_points.get_child(i)
 		player_inst.global_position = spawn_point.global_position
 		player_inst.setup(player_data)
+		player_data.scene = player_inst

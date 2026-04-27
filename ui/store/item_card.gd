@@ -1,5 +1,8 @@
 @tool
+class_name ItemCard
 extends PanelContainer
+
+signal bought
 
 @onready var display_name: Label = %DisplayName
 @onready var image: TextureRect = %Image
@@ -12,9 +15,22 @@ extends PanelContainer
 		update()
 
 
+func _ready() -> void:
+	gui_input.connect(_on_gui_input)
+
 
 func update() -> void:
+	if not is_node_ready():
+		return
 	display_name.text = item_data.display_name
 	image.texture = item_data.image
 	description.text = item_data.description
 	price.text = "$%d" % item_data.price
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("click"):
+		var player_coins: int = Game.get_current_player_coins()
+		if player_coins >= item_data.price:
+			Game.set_current_player_coins(player_coins - item_data.price)
+			bought.emit()

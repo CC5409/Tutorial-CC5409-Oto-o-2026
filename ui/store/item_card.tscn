@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://ch2vrrafnvth6" path="res://items/sword.tres" id="2_dpuog"]
 
 [node name="ItemCard" type="PanelContainer" unique_id=1270391840]
+mouse_default_cursor_shape = 2
 script = ExtResource("1_rdsi8")
 item_data = ExtResource("2_dpuog")
 

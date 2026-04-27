@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://h1vbguyjjow" path="res://gameplay/coin.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://djgy6l1oe7jka" path="res://ui/hud.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://3e6yrtviopst" path="res://enemy/enemy.tscn" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://584r0mvrgy83" path="res://ui/store/store.tscn" id="11_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://j0f3jag664vm" path="res://gameplay/chest.tscn" id="12_eb6dy"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_o6xl0"]
 scenes/1/scene = ExtResource("6_tefeu")
@@ -650,6 +652,12 @@ metadata/_edit_lock_ = true
 [node name="YSort" type="Node2D" parent="." unique_id=1777141999]
 y_sort_enabled = true
 
+[node name="Chest" parent="YSort" unique_id=398103720 instance=ExtResource("12_eb6dy")]
+position = Vector2(661, 399)
+
+[node name="Chest2" parent="YSort" unique_id=1871854331 instance=ExtResource("12_eb6dy")]
+position = Vector2(661, 399)
+
 [node name="Enemies" type="Node2D" parent="YSort" unique_id=610016423]
 y_sort_enabled = true
 
@@ -700,4 +708,7 @@ rotation = 1.1257902
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=791720674]
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=457448076 instance=ExtResource("5_tbgi4")]
+visible = false
+
+[node name="Store" parent="CanvasLayer" unique_id=2100594302 instance=ExtResource("11_ya4ey")]
 visible = false

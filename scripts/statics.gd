@@ -41,6 +41,7 @@ class PlayerData:
 		set(value):
 			coins = value
 			coins_changed.emit(coins)
+	var scene: Player
 	
 	func _init(new_id: int, new_name: String, new_index: int = -1, new_role: Role = Role.NONE) -> void:
 		id = new_id
