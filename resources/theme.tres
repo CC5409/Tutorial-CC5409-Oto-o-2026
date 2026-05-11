@@ -1,7 +1,16 @@
 [gd_resource type="Theme" format=3 uid="uid://cd2xkvuvgo34v"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tekt2"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d4nwg"]
+bg_color = Color(0.4859736, 0.9067555, 0.39052728, 1)
+
 [resource]
 default_font_size = 60
+HealthBar/base_type = &"ProgressBar"
+HealthBar/styles/background = SubResource("StyleBoxFlat_tekt2")
+HealthBar/styles/fill = SubResource("StyleBoxFlat_d4nwg")
 MarginContainer/constants/margin_bottom = 32
 MarginContainer/constants/margin_left = 32
 MarginContainer/constants/margin_right = 32

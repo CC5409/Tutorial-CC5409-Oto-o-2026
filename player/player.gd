@@ -6,13 +6,14 @@ extends CharacterBody2D
 @export var jump_speed: int = 500
 @export var bullet_scene: PackedScene
 @export var weapon_scenes: Array[PackedScene]
+@export var skill_scene: PackedScene
 	
 var _data: Statics.PlayerData
 var current_weapon_index: int = 0
 var current_weapon: Weapon
 
+@onready var hud: HUD = $HUD
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var label: Label = $Label
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 @onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
 @onready var bullet_spawn_marker: Marker2D = $Pivot/BulletSpawnMarker
@@ -28,6 +29,9 @@ var current_weapon: Weapon
 @onready var weapon: Weapon = $WeaponPivot/Weapon
 @onready var weapon_spawner: MultiplayerSpawner = $WeaponSpawner
 @onready var weapon_spawn_point: Marker2D = $WeaponPivot/WeaponSpawnPoint
+@onready var health_bar: ProgressBar = %HealthBar
+@onready var skill_cooldown: Timer = $SkillCooldown
+@onready var skill_spawner: MultiplayerSpawner = $SkillSpawner
 
 
 func _ready() -> void:
@@ -35,12 +39,27 @@ func _ready() -> void:
 		if not weapon_scene:
 			continue
 		weapon_spawner.add_spawnable_scene(weapon_scene.resource_path)
+	if skill_scene:
+		skill_spawner.add_spawnable_scene(skill_scene.resource_path)
 	
 	health_component.health_changed.connect(_on_health_changed)
 	sync_timer.timeout.connect(_on_sync_timeout)
 	if bullet_scene:
 		bullet_spawner.add_spawnable_scene(bullet_scene.resource_path)
 	
+	hud.health_bar.max_value = health_component.max_health
+	hud.health_bar.value = health_component.health
+	
+	health_bar.max_value = health_component.max_health
+	health_bar.value = health_component.health
+	
+	hud.skill_progress_bar.max_value = skill_cooldown.wait_time
+	skill_cooldown.timeout.connect(func() -> void: hud.set_skill_progress(0))
+	hud.set_skill_progress(0)
+	
+func _process(_delta: float) -> void:
+	if not skill_cooldown.is_stopped():
+		hud.set_skill_progress(skill_cooldown.time_left)
 
 func _physics_process(delta: float) -> void:
 	
@@ -57,6 +76,9 @@ func _physics_process(delta: float) -> void:
 			get_current_weapon().fire()
 		if Input.is_action_just_pressed("explosion"):
 			explosion.rpc()
+			
+		if Input.is_action_just_pressed("skill"):
+			skill.rpc_id(1, get_global_mouse_position())
 
 	
 	if Input.is_action_just_pressed("test") and is_multiplayer_authority():
@@ -80,13 +102,14 @@ func change_color() -> void:
 func setup(data: Statics.PlayerData) -> void:
 	_data = data
 	name = str(data.id)
-	label.text = data.name
 	set_multiplayer_authority(data.id, false)
 	multiplayer_synchronizer.set_multiplayer_authority(data.id, false)
 	input_synchronizer.set_multiplayer_authority(data.id, false)
 	if is_multiplayer_authority():
 		sync_timer.start()
 	camera_2d.enabled = is_multiplayer_authority()
+	hud.visible = is_multiplayer_authority()
+	health_bar.visible = not is_multiplayer_authority()
 	
 	if multiplayer.is_server():
 		current_weapon = weapon_scenes[current_weapon_index].instantiate()
@@ -158,7 +181,8 @@ func get_id() -> int:
 
 
 func _on_health_changed(value: int) -> void:
-	Debug.log(value)
+	hud.health_bar.value = value
+	health_bar.value = value
 
 
 @rpc("call_local", "reliable")
@@ -171,3 +195,18 @@ func get_current_weapon() -> Weapon:
 
 func get_data() -> Statics.PlayerData:
 	return _data
+
+
+@rpc("call_local", "reliable")
+func skill(mouse_position: Vector2) -> void:
+	if not skill_cooldown.is_stopped():
+		return
+	skill_multicast.rpc()
+	if skill_scene:
+		var skill_inst: Node2D = skill_scene.instantiate()
+		skill_inst.global_position = mouse_position
+		skill_spawner.add_child(skill_inst, true)
+
+@rpc("any_peer", "call_local", "reliable")
+func skill_multicast() -> void:
+	skill_cooldown.start()

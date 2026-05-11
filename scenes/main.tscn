@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://3e6yrtviopst" path="res://enemy/enemy.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://584r0mvrgy83" path="res://ui/store/store.tscn" id="11_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://j0f3jag664vm" path="res://gameplay/chest.tscn" id="12_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="13_trceg"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_o6xl0"]
 scenes/1/scene = ExtResource("6_tefeu")
@@ -635,6 +636,9 @@ sources/2 = SubResource("TileSetAtlasSource_tefeu")
 sources/0 = SubResource("TileSetScenesCollectionSource_o6xl0")
 sources/1 = SubResource("TileSetAtlasSource_choun")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8y0u"]
+size = Vector2(10, 210)
+
 [node name="Main" type="Node2D" unique_id=826628695]
 script = ExtResource("1_o5qli")
 player_scene = Dictionary[int, PackedScene]({
@@ -712,3 +716,14 @@ visible = false
 
 [node name="Store" parent="CanvasLayer" unique_id=2100594302 instance=ExtResource("11_ya4ey")]
 visible = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1505142989]
+position = Vector2(958, 312)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1003315174]
+shape = SubResource("RectangleShape2D_a8y0u")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1559667782]
+scale = Vector2(0.046875, 1.625)
+texture = ExtResource("13_trceg")

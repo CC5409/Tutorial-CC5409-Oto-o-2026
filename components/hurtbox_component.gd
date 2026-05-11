@@ -15,3 +15,8 @@ func _on_area_entered(area: Area2D) -> void:
 			return
 		health_component.take_damage(hitbox.damage)
 		hitbox.damage_dealt.emit()
+
+
+func take_damage(damage: int) -> void:
+	if health_component:
+		health_component.take_damage(damage)
