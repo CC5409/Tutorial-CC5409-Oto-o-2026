@@ -1,0 +1,65 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://8d046qacvlbk"]
+
+[ext_resource type="Script" uid="uid://cv77prbmsvvp8" path="res://ai/tasks/debug_log.gd" id="1_g0ye8"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_pmsee"]
+var/weapon/name = &"weapon"
+var/weapon/type = 1
+var/weapon/value = false
+var/weapon/hint = 0
+var/weapon/hint_string = ""
+
+[sub_resource type="BTFail" id="BTFail_5y418"]
+
+[sub_resource type="BTAction" id="BTAction_cc4cc"]
+script = ExtResource("1_g0ye8")
+text = "one"
+
+[sub_resource type="BTWait" id="BTWait_g0ye8"]
+
+[sub_resource type="BTSequence" id="BTSequence_5y418"]
+children = [SubResource("BTFail_5y418"), SubResource("BTAction_cc4cc"), SubResource("BTWait_g0ye8")]
+
+[sub_resource type="BBVariant" id="BBVariant_5y418"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_g0ye8"]
+variable = &"weapon"
+value = SubResource("BBVariant_5y418")
+
+[sub_resource type="BTAction" id="BTAction_g0ye8"]
+script = ExtResource("1_g0ye8")
+text = "two"
+
+[sub_resource type="BTWait" id="BTWait_uemlx"]
+
+[sub_resource type="BTSequence" id="BTSequence_g0ye8"]
+children = [SubResource("BTCheckVar_g0ye8"), SubResource("BTAction_g0ye8"), SubResource("BTWait_uemlx")]
+
+[sub_resource type="BTAction" id="BTAction_uemlx"]
+script = ExtResource("1_g0ye8")
+text = "three"
+
+[sub_resource type="BTWait" id="BTWait_bflkg"]
+duration = 10.0
+
+[sub_resource type="BBVariant" id="BBVariant_cc4cc"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetVar" id="BTSetVar_uemlx"]
+variable = &"weapon"
+value = SubResource("BBVariant_cc4cc")
+
+[sub_resource type="BTSequence" id="BTSequence_cc4cc"]
+children = [SubResource("BTAction_uemlx"), SubResource("BTWait_bflkg"), SubResource("BTSetVar_uemlx")]
+
+[sub_resource type="BTSelector" id="BTSelector_uemlx"]
+children = [SubResource("BTSequence_5y418"), SubResource("BTSequence_g0ye8"), SubResource("BTSequence_cc4cc")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_pmsee")
+root_task = SubResource("BTSelector_uemlx")

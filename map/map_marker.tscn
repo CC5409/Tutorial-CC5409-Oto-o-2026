@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://7svxwkoiskl"]
+
+[ext_resource type="Texture2D" uid="uid://cmd7uj8d78ygb" path="res://assets/FreeCharactersAnimationsAssetPack/SpriteSheets(96x96)/Monster_Slime/No_Shadows/Monster_Slime_Idle-Sheet.png" id="1_j3fgv"]
+[ext_resource type="Script" uid="uid://cddh4jrkfc5a7" path="res://map/map_marker.gd" id="2_bun61"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bun61"]
+atlas = ExtResource("1_j3fgv")
+region = Rect2(32, 40, 32, 24)
+
+[node name="MapMarker" type="Sprite2D" unique_id=1285186411]
+texture = SubResource("AtlasTexture_bun61")
+script = ExtResource("2_bun61")

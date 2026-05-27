@@ -275,9 +275,6 @@ nodes/fire_one_shot/node = SubResource("AnimationNodeOneShot_ur7pv")
 nodes/fire_one_shot/position = Vector2(272, 160)
 node_connections = [&"output", 0, &"fire_one_shot", &"fire_one_shot", 0, &"movement", &"fire_one_shot", 1, &"Animation"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4r1p"]
-size = Vector2(108, 92)
-
 [sub_resource type="Gradient" id="Gradient_y4r1p"]
 offsets = PackedFloat32Array(0, 0.9825175)
 colors = PackedColorArray(1, 0.14999998, 0, 1, 0, 0.92156863, 0, 1)
@@ -365,18 +362,6 @@ parameters/fire_one_shot/active = false
 parameters/fire_one_shot/internal_active = false
 parameters/fire_one_shot/request = 0
 
-[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1036797779 node_paths=PackedStringArray("health_component")]
-visible = false
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("9_ur7pv")
-health_component = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://xxxmevpegf5b"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=603634600]
-visible = false
-shape = SubResource("RectangleShape2D_y4r1p")
-
 [node name="HealthComponent" parent="." unique_id=1611442190 instance=ExtResource("10_y4r1p")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1641882317]
@@ -417,11 +402,11 @@ one_shot = true
 [node name="SkillSpawner" type="MultiplayerSpawner" parent="." unique_id=1259287747]
 spawn_path = NodePath(".")
 
-[node name="HurtboxComponent2" type="Area2D" parent="." unique_id=1283914655 node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1283914655 node_paths=PackedStringArray("health_component")]
 collision_layer = 2
 script = ExtResource("9_ur7pv")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://xxxmevpegf5b"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2" unique_id=688686321]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=688686321]
 shape = SubResource("CircleShape2D_kb6p2")
