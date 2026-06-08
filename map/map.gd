@@ -1,11 +1,16 @@
-extends Panel
+extends Control
 
 @export var map_maker_scene: PackedScene
-@onready var origin: Control = $Origin
+@onready var origin: Control = $Map/Origin
+@onready var map: Panel = $Map
 
 var zoom: float = 1
+var zoom_enabled: bool = false
 
 func _ready() -> void:
+	map.mouse_entered.connect(func() -> void: zoom_enabled = true)
+	map.mouse_exited.connect(func() -> void: zoom_enabled = false)
+	
 	if not map_maker_scene:
 		return
 	set_process(false)
@@ -24,6 +29,8 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not zoom_enabled:
+		return
 	if event.is_action_pressed("zoom_up"):
 		zoom += 0.1
 	if event.is_action_pressed("zoom_down"):

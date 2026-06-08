@@ -32,6 +32,7 @@ var current_weapon: Weapon
 @onready var health_bar: ProgressBar = %HealthBar
 @onready var skill_cooldown: Timer = $SkillCooldown
 @onready var skill_spawner: MultiplayerSpawner = $SkillSpawner
+@onready var arm: Skeleton2D = $Arm
 
 
 func _ready() -> void:
@@ -110,6 +111,7 @@ func setup(data: Statics.PlayerData) -> void:
 	camera_2d.enabled = is_multiplayer_authority()
 	hud.visible = is_multiplayer_authority()
 	health_bar.visible = not is_multiplayer_authority()
+	arm.set_multiplayer_authority(data.id)
 	
 	if multiplayer.is_server():
 		current_weapon = weapon_scenes[current_weapon_index].instantiate()

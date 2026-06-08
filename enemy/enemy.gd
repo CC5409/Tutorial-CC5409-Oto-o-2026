@@ -19,11 +19,11 @@ func _ready() -> void:
 	else:
 		set_physics_process(false)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	
 	if target_player:
-		var horizontal_direction = sign(target_player.global_position.x - global_position.x)
-		Debug.log(horizontal_direction)
+		var horizontal_direction: float = sign(target_player.global_position.x - global_position.x)
+		#Debug.log(horizontal_direction)
 	if navigation_agent_2d.is_navigation_finished():
 		velocity = Vector2.ZERO
 		return

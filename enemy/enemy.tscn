@@ -64,6 +64,7 @@ shape = SubResource("RectangleShape2D_1wwld")
 
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=189241494]
 behavior_tree = ExtResource("6_1wwld")
+active = false
 blackboard_plan = SubResource("BlackboardPlan_y5vj3")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1272031988]
