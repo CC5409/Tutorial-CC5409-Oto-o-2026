@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://sxfhldhu5f0g"]
+
+[ext_resource type="Script" uid="uid://566ip4iv42h2" path="res://gameplay/spawner.gd" id="1_0grye"]
+
+[node name="Spawner" type="Marker2D" unique_id=1617926496]
+script = ExtResource("1_0grye")
+radius = 200.0
+amount = null
+rate = null
+use_radius = null
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=429990889]
+_spawnable_scenes = PackedStringArray("uid://3e6yrtviopst")
+spawn_path = NodePath(".")
+
+[node name="Timer" type="Timer" parent="." unique_id=282154376]

@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 var speed: int = 50
 var target_player: Player
+static var radius: float = 100
 
 func _ready() -> void:
 	health_component.health_changed.connect(_on_health_changed)

@@ -512,7 +512,7 @@ parameters/fire_one_shot/request = 0
 [node name="HealthComponent" parent="." unique_id=1611442190 instance=ExtResource("10_y4r1p")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1641882317]
-zoom = Vector2(2, 2)
+zoom = Vector2(0.1, 0.1)
 process_callback = 0
 position_smoothing_enabled = true
 
